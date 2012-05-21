@@ -29,7 +29,7 @@ public class DevByTableRetriever implements ITableRetriever {
      * @return string containing a raw table.
      */
     private String getRawTable(UserQuery userQuery) {
-        // TODO impement url parsing
+        // TODO impement url loading and html parsing. Java regex will help.
         return "";
     }
 
