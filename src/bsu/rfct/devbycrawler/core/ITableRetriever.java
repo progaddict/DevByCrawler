@@ -9,6 +9,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public interface ITableRetriever {
 
-    public AbstractTableModel retreiveTable(UserQuery userQuery);
+    public AbstractTableModel retrieveTable(UserQuery userQuery);
 
 }

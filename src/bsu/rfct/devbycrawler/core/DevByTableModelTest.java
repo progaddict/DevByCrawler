@@ -13,12 +13,12 @@ import org.testng.annotations.Test;
  */
 public class DevByTableModelTest {
 
-    String itemsName;
-    String[] someItems;
-    double[] someMinValues;
-    double[] someAverageValues;
-    double[] someMaxValues;
-    DevByTableModel aTable;
+    private String itemsName;
+    private String[] someItems;
+    private double[] someMinValues;
+    private double[] someAverageValues;
+    private double[] someMaxValues;
+    private DevByTableModel aTable;
 
     @BeforeSuite
     public void setUp() throws Exception {
