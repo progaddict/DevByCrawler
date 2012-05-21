@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 
 
+
+
 /**
  * Table model for dev.by. Consists of 4 columns: item name, min, average, max.
  */
@@ -19,6 +21,7 @@ public class DevByTableModel extends AbstractTableModel {
     private ArrayList<Double> min;
     private ArrayList<Double> average;
     private ArrayList<Double> max;
+
 
 
     public DevByTableModel(String itemsName, String[] items, double[] min, double[] average, double[] max) {
@@ -41,6 +44,7 @@ public class DevByTableModel extends AbstractTableModel {
             this.max.add(new Double(max[i]));
         }
     }
+
 
 
     @Override
@@ -70,6 +74,8 @@ public class DevByTableModel extends AbstractTableModel {
         return Object.class;
     }
 
+
+
     @Override
     public int getRowCount() {
         return numberOfRows;
@@ -79,6 +85,8 @@ public class DevByTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return 4;
     }
+
+
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -95,6 +103,7 @@ public class DevByTableModel extends AbstractTableModel {
         }
         return "";
     }
+
 
 
     private boolean isRowWithinBounds(int rowIndex) {
