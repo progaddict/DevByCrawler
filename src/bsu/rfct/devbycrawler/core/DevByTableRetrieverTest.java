@@ -5,7 +5,6 @@ package bsu.rfct.devbycrawler.core;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,12 +25,11 @@ public class DevByTableRetrieverTest {
 
 
     @BeforeMethod
-    public void setUp() throws MalformedURLException {
+    public void setUp() throws Exception {
         aURL = new URL("http://dev.by/salaries");
         aTableInfo = HTMLTableInfo.PLATFORMS_TABLE;
         someItemsToSelect = new HashSet<String>(10);
         someItemsToSelect.add(".NET");
-        someItemsToSelect.add("1C");
         someItemsToSelect.add("ABAP/4");
         someItemsToSelect.add("Android");
         someItemsToSelect.add("C/C++");
@@ -44,7 +42,23 @@ public class DevByTableRetrieverTest {
 
     @Test
     public void testRetrieveTable() throws Exception {
-
+        DevByTableModel aTable = (DevByTableModel) aDevByTableRetriever.retrieveTable(aUserQuery);
+        int rowNumber = aTable.getRowCount();
+        int colNumber = aTable.getColumnCount();
+        System.out.println("rows = " + rowNumber + "   cols = " + colNumber);
+        String header = "";
+        for(int i=1; i<=colNumber; i++) {
+            header = header + aTable.getColumnName(i) + "\t\t";
+        }
+        System.out.println(header);
+        for(int i=1; i<=rowNumber; i++) {
+            for(int j=1; j<=colNumber; j++) {
+                System.out.print( aTable.getValueAt(i,j) + "\t\t" );
+            }
+            System.out.println();
+        }
+        System.out.println("Done");
+        System.in.read(); // just to prevent clearing console
     }
 
 }

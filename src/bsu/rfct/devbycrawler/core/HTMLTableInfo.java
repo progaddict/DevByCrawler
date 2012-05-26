@@ -15,7 +15,7 @@ public final class HTMLTableInfo {
     public static final HTMLTableInfo POSITIONS_TABLE = new HTMLTableInfo("position-table");
 
     /** Positions table info */
-    public static final HTMLTableInfo CITIES_TABLE = new HTMLTableInfo("city-table");
+    public static HTMLTableInfo CITIES_TABLE = new HTMLTableInfo("city-table");
 
 
 

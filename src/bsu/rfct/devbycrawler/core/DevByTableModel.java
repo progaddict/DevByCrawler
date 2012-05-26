@@ -11,7 +11,8 @@ import java.util.Arrays;
 
 
 /**
- * Table model for dev.by. Consists of 4 columns: item name, min, average, max.
+ * Table model for dev.by.
+ * Consists of 5 columns: item name, min, average, max, number of forms applied.
  */
 public class DevByTableModel extends AbstractTableModel {
 
@@ -21,10 +22,13 @@ public class DevByTableModel extends AbstractTableModel {
     private ArrayList<Double> min;
     private ArrayList<Double> average;
     private ArrayList<Double> max;
+    private ArrayList<Double> numberOfForms;
 
 
 
-    public DevByTableModel(String itemsName, ArrayList<String> items, ArrayList<Double> min, ArrayList<Double> average, ArrayList<Double> max) {
+    public DevByTableModel(String itemsName, ArrayList<String> items,
+                           ArrayList<Double> min, ArrayList<Double> average, ArrayList<Double> max,
+                           ArrayList<Double> numberOfForms ) {
         assert itemsName != null;
         assert !itemsName.equals("");
         assert items != null;
@@ -37,6 +41,7 @@ public class DevByTableModel extends AbstractTableModel {
         this.min = new ArrayList<Double>(min);
         this.average = new ArrayList<Double>(average);
         this.max = new ArrayList<Double>(max);
+        this.numberOfForms = new ArrayList<Double>(numberOfForms);
     }
 
 
@@ -52,6 +57,8 @@ public class DevByTableModel extends AbstractTableModel {
                 return "average";
             case 4:
                 return "max";
+            case 5:
+                return "number of forms";
         }
         return "";
     }
@@ -62,7 +69,7 @@ public class DevByTableModel extends AbstractTableModel {
         if( columnIndex == 1 ) {
             return String.class;
         }
-        if( 2 <= columnIndex && columnIndex <= 4 ) {
+        if( 2 <= columnIndex && columnIndex <= 5 ) {
             return Double.class;
         }
         return Object.class;
@@ -77,7 +84,7 @@ public class DevByTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
 
@@ -94,6 +101,8 @@ public class DevByTableModel extends AbstractTableModel {
                 return average.get(rowIndex-1);
             case 4:
                 return max.get(rowIndex-1);
+            case 5:
+                return numberOfForms.get(rowIndex-1);
         }
         return "";
     }

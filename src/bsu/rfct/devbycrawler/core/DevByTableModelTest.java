@@ -20,6 +20,7 @@ public class DevByTableModelTest {
     private ArrayList<Double> someMinValues;
     private ArrayList<Double> someAverageValues;
     private ArrayList<Double> someMaxValues;
+    private ArrayList<Double> someNumberOfFormsValues;
     private DevByTableModel aTable;
 
     @BeforeSuite
@@ -29,7 +30,8 @@ public class DevByTableModelTest {
         someMinValues = new ArrayList<Double>(Arrays.asList(new Double[] {0d,1d,2d,3d,4d}));
         someAverageValues = new ArrayList<Double>(Arrays.asList(new Double[] {10d,11d,12d,13d,14d}));
         someMaxValues = new ArrayList<Double>(Arrays.asList(new Double[] {20d,21d,22d,23d,24d}));
-        aTable = new DevByTableModel(itemsName,someItems,someMinValues,someAverageValues,someMaxValues);
+        someNumberOfFormsValues = new ArrayList<Double>(Arrays.asList(new Double[] {10d,20d,200d,2d,4d}));
+        aTable = new DevByTableModel(itemsName,someItems,someMinValues,someAverageValues,someMaxValues,someNumberOfFormsValues);
     }
 
     @Test
@@ -38,6 +40,7 @@ public class DevByTableModelTest {
         Assert.assertEquals( aTable.getColumnName(2), "min" );
         Assert.assertEquals( aTable.getColumnName(3), "average" );
         Assert.assertEquals( aTable.getColumnName(4), "max" );
+        Assert.assertEquals( aTable.getColumnName(5), "number of forms" );
     }
 
     @Test
@@ -46,6 +49,7 @@ public class DevByTableModelTest {
         Assert.assertEquals( aTable.getColumnClass(2), Double.class );
         Assert.assertEquals( aTable.getColumnClass(3), Double.class );
         Assert.assertEquals( aTable.getColumnClass(4), Double.class );
+        Assert.assertEquals( aTable.getColumnClass(5), Double.class );
     }
 
     @Test
@@ -55,7 +59,7 @@ public class DevByTableModelTest {
 
     @Test
     public void testGetColumnCount() {
-        Assert.assertEquals( aTable.getColumnCount(), 4 );
+        Assert.assertEquals( aTable.getColumnCount(), 5 );
     }
 
     @Test
@@ -72,6 +76,9 @@ public class DevByTableModelTest {
         for(int i=0; i<someItems.size(); i++) {
             Assert.assertEquals( aTable.getValueAt(i+1,4), someMaxValues.get(i) );
         }
+        for(int i=0; i<someItems.size(); i++) {
+            Assert.assertEquals( aTable.getValueAt(i+1,5), someNumberOfFormsValues.get(i) );
+        }
     }
 
     @Test
@@ -84,6 +91,8 @@ public class DevByTableModelTest {
         Assert.assertEquals( aTable.getValueAt(1,3), 10d );
         someMaxValues.set(0,-10d);
         Assert.assertEquals( aTable.getValueAt(1,4), 20d );
+        someNumberOfFormsValues.set(0,-10d);
+        Assert.assertEquals( aTable.getValueAt(1,5), 10d );
     }
 
 }
