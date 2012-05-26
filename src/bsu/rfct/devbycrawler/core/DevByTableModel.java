@@ -24,25 +24,19 @@ public class DevByTableModel extends AbstractTableModel {
 
 
 
-    public DevByTableModel(String itemsName, String[] items, double[] min, double[] average, double[] max) {
+    public DevByTableModel(String itemsName, ArrayList<String> items, ArrayList<Double> min, ArrayList<Double> average, ArrayList<Double> max) {
         assert itemsName != null;
         assert !itemsName.equals("");
         assert items != null;
         assert min != null;
         assert average != null;
         assert max != null;
-        assert items.length > 0;
         this.itemsName = itemsName;
-        this.numberOfRows = items.length;
-        this.items = new ArrayList<String>(Arrays.asList(items));
-        this.min = new ArrayList<Double>(this.numberOfRows);
-        this.average = new ArrayList<Double>(this.numberOfRows);
-        this.max = new ArrayList<Double>(this.numberOfRows);
-        for(int i=0; i<this.numberOfRows; i++) {
-            this.min.add(new Double(min[i]));
-            this.average.add(new Double(average[i]));
-            this.max.add(new Double(max[i]));
-        }
+        this.numberOfRows = items.size();
+        this.items = new ArrayList<String>(items);
+        this.min = new ArrayList<Double>(min);
+        this.average = new ArrayList<Double>(average);
+        this.max = new ArrayList<Double>(max);
     }
 
 

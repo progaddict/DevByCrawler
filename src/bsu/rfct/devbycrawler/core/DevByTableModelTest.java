@@ -6,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -14,19 +16,19 @@ import org.testng.annotations.Test;
 public class DevByTableModelTest {
 
     private String itemsName;
-    private String[] someItems;
-    private double[] someMinValues;
-    private double[] someAverageValues;
-    private double[] someMaxValues;
+    private ArrayList<String> someItems;
+    private ArrayList<Double> someMinValues;
+    private ArrayList<Double> someAverageValues;
+    private ArrayList<Double> someMaxValues;
     private DevByTableModel aTable;
 
     @BeforeSuite
     public void setUp() throws Exception {
         itemsName = "positions";
-        someItems = new String[] {"position A","position B","position C","position D","position E"};
-        someMinValues = new double[] {0,1,2,3,4};
-        someAverageValues = new double[] {10,11,12,13,14};
-        someMaxValues = new double[] {20,21,22,23,24};
+        someItems = new ArrayList<String>(Arrays.asList(new String[] {"position A","position B","position C","position D","position E"}));
+        someMinValues = new ArrayList<Double>(Arrays.asList(new Double[] {0d,1d,2d,3d,4d}));
+        someAverageValues = new ArrayList<Double>(Arrays.asList(new Double[] {10d,11d,12d,13d,14d}));
+        someMaxValues = new ArrayList<Double>(Arrays.asList(new Double[] {20d,21d,22d,23d,24d}));
         aTable = new DevByTableModel(itemsName,someItems,someMinValues,someAverageValues,someMaxValues);
     }
 
@@ -48,7 +50,7 @@ public class DevByTableModelTest {
 
     @Test
     public void testGetRowCount() {
-        Assert.assertEquals( aTable.getRowCount(), someItems.length );
+        Assert.assertEquals( aTable.getRowCount(), someItems.size() );
     }
 
     @Test
@@ -58,17 +60,30 @@ public class DevByTableModelTest {
 
     @Test
     public void testGetValueAt() {
-        Assert.assertEquals( aTable.getValueAt(1,1), someItems[0] );
-        Assert.assertEquals( aTable.getValueAt(2,1), someItems[1] );
-        Assert.assertEquals( aTable.getValueAt(3,1), someItems[2] );
-        Assert.assertEquals( aTable.getValueAt(4,1), someItems[3] );
-        Assert.assertEquals( aTable.getValueAt(5,1), someItems[4] );
-        Assert.assertEquals( aTable.getValueAt(1,2), new Double(someMinValues[0]) );
-        Assert.assertEquals( aTable.getValueAt(5,2), new Double(someMinValues[4]) );
-        Assert.assertEquals( aTable.getValueAt(1,3), new Double(someAverageValues[0]) );
-        Assert.assertEquals( aTable.getValueAt(5,3), new Double(someAverageValues[4]) );
-        Assert.assertEquals( aTable.getValueAt(1,4), new Double(someMaxValues[0]) );
-        Assert.assertEquals( aTable.getValueAt(5,4), new Double(someMaxValues[4]) );
+        for(int i=0; i<someItems.size(); i++) {
+            Assert.assertEquals( aTable.getValueAt(i+1,1), someItems.get(i) );
+        }
+        for(int i=0; i<someItems.size(); i++) {
+            Assert.assertEquals( aTable.getValueAt(i+1,2), someMinValues.get(i) );
+        }
+        for(int i=0; i<someItems.size(); i++) {
+            Assert.assertEquals( aTable.getValueAt(i+1,3), someAverageValues.get(i) );
+        }
+        for(int i=0; i<someItems.size(); i++) {
+            Assert.assertEquals( aTable.getValueAt(i+1,4), someMaxValues.get(i) );
+        }
+    }
+
+    @Test
+    public void testImmutability() {
+        someItems.set(0,"position X");
+        Assert.assertEquals( aTable.getValueAt(1,1), "position A" );
+        someMinValues.set(0,-10d);
+        Assert.assertEquals( aTable.getValueAt(1,2), 0d );
+        someAverageValues.set(0,-10d);
+        Assert.assertEquals( aTable.getValueAt(1,3), 10d );
+        someMaxValues.set(0,-10d);
+        Assert.assertEquals( aTable.getValueAt(1,4), 20d );
     }
 
 }
