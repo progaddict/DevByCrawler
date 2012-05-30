@@ -25,10 +25,20 @@ public class Controller {
         return ConfigManager.readPositionsConfig();
     }
 
+    public ArrayList<String> getPlatforms() {
+        return ConfigManager.readPlatformsConfig();
+    }
+
     public ArrayList<String> getSiteList() {
+        // TODO think about config file for sites
         ArrayList<String> siteList = new ArrayList<String>(1);
         siteList.add("http://dev.by/salaries");
         return siteList;
+    }
+
+    public Double getAverage(UserQuery userQuery) {
+        CrawlerResponse response = aDevByCrawler.crawl(userQuery);
+        return response.getAverage();
     }
 
 }

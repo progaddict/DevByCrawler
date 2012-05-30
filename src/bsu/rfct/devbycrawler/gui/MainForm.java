@@ -1,11 +1,14 @@
 package bsu.rfct.devbycrawler.gui;
 
 import bsu.rfct.devbycrawler.controller.Controller;
+import bsu.rfct.devbycrawler.core.HTMLTableInfo;
+import bsu.rfct.devbycrawler.core.UserQuery;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.HashSet;
+import java.util.List;
 
 
 public class MainForm {
@@ -14,16 +17,23 @@ public class MainForm {
 
     public MainForm() {
         aController = new Controller();
+        comboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "http://dev.by/salaries/" }));
+        list1.setListData( aController.getPlatforms().toArray() );
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
             }
         });
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
+                String site = (String) comboBox1.getSelectedItem();
+                List<String> selectedPositions = list1.getSelectedValuesList();
+                UserQuery userQuery = new UserQuery(site, HTMLTableInfo.PLATFORMS_TABLE, new HashSet<String>(selectedPositions));
+                double average = aController.getAverage(userQuery);
+                if( average > 0 ) {
+                    resultLabel.setText( "Average salary is " + average );
+                }
             }
         });
     }
