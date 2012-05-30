@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class DevByTableRetrieverTest {
 
-    private URL aURL;
+    private String aURL;
     private HTMLTableInfo aTableInfo;
     private Set<String> someItemsToSelect;
     private UserQuery aUserQuery;
@@ -26,7 +26,7 @@ public class DevByTableRetrieverTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        aURL = new URL("http://dev.by/salaries");
+        aURL = "http://dev.by/salaries";
         aTableInfo = HTMLTableInfo.PLATFORMS_TABLE;
         someItemsToSelect = new HashSet<String>(10);
         someItemsToSelect.add(".NET");

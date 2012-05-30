@@ -56,7 +56,7 @@ public class DevByTableRetriever implements ITableRetriever {
     public AbstractTableModel retrieveTable(UserQuery userQuery) {
         this.userDefinedItems = userQuery.getItemsToSelect();
         try {
-            Document doc = Jsoup.connect(userQuery.getUrlToCrawl().toExternalForm()).get();
+            Document doc = Jsoup.connect(userQuery.getUrlToCrawl()).get();
             Element table = doc.getElementById(userQuery.getTableToRetrieve().getTableID());
             Elements rows = table.getElementsByTag(TABLE_ROW_TAG);
             // first row contains table header, so we remove it

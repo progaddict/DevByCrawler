@@ -1,7 +1,6 @@
 package bsu.rfct.devbycrawler.core;
 
 
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,11 +12,11 @@ import java.util.Set;
  */
 public class UserQuery {
 
-    private URL urlToCrawl;
+    private String urlToCrawl;
     private HTMLTableInfo tableToRetrieve;
     private Set<String> itemsToSelect;
 
-    public UserQuery(URL urlToCrawl, HTMLTableInfo tableToRetrieve, Set<String> itemsToSelect) {
+    public UserQuery(String urlToCrawl, HTMLTableInfo tableToRetrieve, Set<String> itemsToSelect) {
         assert urlToCrawl != null;
         assert tableToRetrieve != null;
         assert itemsToSelect != null;
@@ -26,7 +25,7 @@ public class UserQuery {
         this.itemsToSelect = new HashSet<String>(itemsToSelect);
     }
 
-    public URL getUrlToCrawl() {
+    public String getUrlToCrawl() {
         return urlToCrawl;
     }
 

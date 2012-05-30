@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ public class UserQueryTest {
 
     @Test
     public void testImmutability() throws MalformedURLException {
-        URL aURL = new URL("http://dev.by/salaries");
+        String aURL = "http://dev.by/salaries";
         HTMLTableInfo aTable = HTMLTableInfo.PLATFORMS_TABLE;
         HashSet<String> aSet = new HashSet<String>(10);
         aSet.add(".NET");
