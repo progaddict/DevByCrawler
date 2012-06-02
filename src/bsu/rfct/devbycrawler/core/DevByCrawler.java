@@ -1,13 +1,15 @@
 package bsu.rfct.devbycrawler.core;
 
 
-
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Dev.by crawler.
  */
 public class DevByCrawler implements ICrawler {
+
+    private static Log logger = LogFactory.getLog(DevByCrawler.class);
 
     private DevByTableRetriever aDevByTableRetriever;
     private DevByTableModel aDevByTableModel;
@@ -32,6 +34,7 @@ public class DevByCrawler implements ICrawler {
         }
         // TODO think what might go wrong
         catch( Exception trouble ) {
+            logger.error("something went wrong: " + trouble.getMessage() + ". returning null response.");
             return CrawlerResponse.NULL_CRAWLER_RESPONSE;
         }
         return aCrawlerResponse;
@@ -52,10 +55,15 @@ public class DevByCrawler implements ICrawler {
                 result += numberOfForms*average;
             }
             assert totalNumberOfForms != 0;
+            if( totalNumberOfForms == 0 ) {
+                logger.error("number of forms is zero! I won't divide by zero!");
+                return 0.0d;
+            }
             result /= totalNumberOfForms;
         }
         // TODO what might go wrong?
         catch (Exception trouble) {
+            logger.error("something went wrong: " + trouble.getMessage() + ". returning 0.");
             return 0.0d;
         }
         return result;

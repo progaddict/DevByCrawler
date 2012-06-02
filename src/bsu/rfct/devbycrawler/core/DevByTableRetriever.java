@@ -2,12 +2,15 @@ package bsu.rfct.devbycrawler.core;
 
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.swing.table.AbstractTableModel;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -18,9 +21,12 @@ import java.util.Set;
  */
 public class DevByTableRetriever implements ITableRetriever {
 
-    private Set<String> userDefinedItems;
+    private static Log logger = LogFactory.getLog(DevByTableRetriever.class);
+
     private static final String TABLE_ROW_TAG = "tr";
     private static final int EXPECTED_NUMBER_OF_ITEMS = 20;
+
+    private Set<String> userDefinedItems;
     private ArrayList<String> items;
     private ArrayList<Double> min;
     private ArrayList<Double> average;
@@ -74,10 +80,14 @@ public class DevByTableRetriever implements ITableRetriever {
                     items,min,average,max,numberOfForms);
         }
         // TODO think what might go wrong, i.e. exception types to handle
-        catch (Exception trouble) {
-            // TODO logging
+        catch (MalformedURLException trouble) {
+            logger.error("malformed URL. returning null.");
+            return null;
         }
-        return null; // in case of trouble (try failed)
+        catch (Exception trouble) {
+            logger.error("something went wrong: " + trouble.getMessage() + ". returning null.");
+            return null;
+        }
     }
 
 }

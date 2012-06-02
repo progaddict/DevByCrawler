@@ -27,8 +27,8 @@ public class CheckSomeStuff {
         String str = "   260  анкет  ";
         str = str.replaceAll("[^0-9]","");
         Double d = Double.parseDouble(str);
-        System.out.println(d);
+        System.out.println(d/0.0d);
         System.out.println("Done");
-        //System.in.read();
+        System.in.read();
     }
 }

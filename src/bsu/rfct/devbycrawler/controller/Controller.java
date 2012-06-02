@@ -14,8 +14,6 @@ import java.util.ArrayList;
 public class Controller {
 
     private DevByCrawler aDevByCrawler;
-    private UserQuery aUserQuery;
-    private CrawlerResponse aCrawlerResponse;
 
     public Controller() {
         aDevByCrawler = new DevByCrawler();

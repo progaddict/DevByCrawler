@@ -3,6 +3,8 @@ package bsu.rfct.devbycrawler.gui;
 import bsu.rfct.devbycrawler.controller.Controller;
 import bsu.rfct.devbycrawler.core.HTMLTableInfo;
 import bsu.rfct.devbycrawler.core.UserQuery;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,8 +14,6 @@ import java.util.List;
 
 
 public class MainForm {
-
-    private Controller aController;
 
     public MainForm() {
         aController = new Controller();
@@ -33,6 +33,8 @@ public class MainForm {
                 double average = aController.getAverage(userQuery);
                 if( average > 0 ) {
                     resultLabel.setText( "Average salary is " + average );
+                } else {
+                    logger.error("wrong average value: " + average);
                 }
             }
         });
@@ -44,7 +46,14 @@ public class MainForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        logger.info("the application has been started.");
     }
+
+
+
+    private static Log logger = LogFactory.getLog(MainForm.class);
+
+    private Controller aController;
 
     private JPanel panel1;
     private JList list1;

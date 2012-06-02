@@ -2,6 +2,9 @@ package bsu.rfct.devbycrawler.core;
 
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +19,9 @@ import java.util.Scanner;
  * Configuration manager.
  */
 public class ConfigManager {
-    
+
+    private static Log logger = LogFactory.getLog(ConfigManager.class);
+
     private static final String DEFAULT_POSITIONS_CONFIG_FILE_NAME = "positions.ini";
     private static final String DEFAULT_PLATFORMS_CONFIG_FILE_NAME = "platforms.ini";
     private static final int EXPECTED_ARRAY_LENGTH = 25;
@@ -28,6 +33,7 @@ public class ConfigManager {
      */
     public static ArrayList<String> readPositionsConfig()
     {
+        logger.info("reading positions list.");
         return readStringsFromFile(DEFAULT_POSITIONS_CONFIG_FILE_NAME);
     }
     
@@ -38,6 +44,7 @@ public class ConfigManager {
      */
     public static ArrayList<String> readPlatformsConfig()
     {
+        logger.info("reading platforms list.");
         return readStringsFromFile(DEFAULT_PLATFORMS_CONFIG_FILE_NAME);
     }
     
@@ -50,7 +57,16 @@ public class ConfigManager {
     {
         assert platforms != null;
         assert platforms.size() > 0;
+        if( platforms == null ) {
+            logger.error("platforms list is null!");
+            return;
+        }
+        if( platforms.size() == 0 ) {
+            logger.warn("platforms list is empty. nothing to write.");
+            return;
+        }
         writeStringsToFile( DEFAULT_PLATFORMS_CONFIG_FILE_NAME, platforms );
+        logger.info("platforms list was written.");
     }
     
     
@@ -62,7 +78,16 @@ public class ConfigManager {
     {
         assert positions!= null;
         assert positions.size() > 0;
+        if( positions == null ) {
+            logger.error("positions list is null!");
+            return;
+        }
+        if( positions.size() == 0 ) {
+            logger.warn("positions list is empty. nothing to write.");
+            return;
+        }
         writeStringsToFile( DEFAULT_POSITIONS_CONFIG_FILE_NAME, positions );
+        logger.info("positions list was written.");
     }
     
     
@@ -72,7 +97,14 @@ public class ConfigManager {
     {
         assert fileName != null;
         assert fileName.length() > 0;
-        // TODO think whether to throw exceptions
+        if( fileName == null ) {
+            logger.error("filename is null! returning empty list.");
+            return new ArrayList<String>();
+        }
+        if( fileName.length() == 0 ) {
+            logger.error("filename is an empty string! returning empty list.");
+            return new ArrayList<String>();
+        }
         Scanner input = null;
         ArrayList<String> stringList = new ArrayList<String>( EXPECTED_ARRAY_LENGTH );
         try
@@ -86,7 +118,7 @@ public class ConfigManager {
         }
         catch( IOException ioTrouble )
         {
-            // TODO logging
+            logger.error("some IO trouble has occurred. returning empty list.");
             return new ArrayList<String>();
         }
         finally
@@ -96,6 +128,7 @@ public class ConfigManager {
                 input.close();
             }
         }
+        logger.info("strings were successfully read. returning list with them.");
         return stringList;
     }
     
@@ -106,9 +139,14 @@ public class ConfigManager {
     {
         assert fileName != null;
         assert fileName.length() > 0;
-        assert stringsToWrite != null;
-        assert stringsToWrite.size() > 0;
-        // TODO think whether to throw exceptions
+        if( fileName == null ) {
+            logger.error("filename is null! returning.");
+            return;
+        }
+        if( fileName.length() == 0 ) {
+            logger.error("filename is an empty string! returning.");
+            return;
+        }
         PrintWriter output = null;
         try
         {
@@ -120,11 +158,13 @@ public class ConfigManager {
         }
         catch( FileNotFoundException ioTrouble )
         {
-            // TODO logging
+            logger.error("file wasn't found! returning.");
+            return;
         }
         catch( IOException ioTrouble )
         {
-            // TODO logging
+            logger.error("some IO trouble has occurred. returning.");
+            return;
         }
         finally
         {
@@ -133,6 +173,7 @@ public class ConfigManager {
                 output.close();
             }
         }
+        logger.info("strings were successfully written.");
     }
     
 }

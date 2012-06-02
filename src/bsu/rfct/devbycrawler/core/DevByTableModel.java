@@ -2,6 +2,9 @@ package bsu.rfct.devbycrawler.core;
 
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +18,8 @@ import java.util.Arrays;
  * Consists of 5 columns: item name, min, average, max, number of forms applied.
  */
 public class DevByTableModel extends AbstractTableModel {
+
+    private static Log logger = LogFactory.getLog(DevByTableModel.class);
 
     private String itemsName;
     private int numberOfRows;
@@ -60,6 +65,7 @@ public class DevByTableModel extends AbstractTableModel {
             case 5:
                 return "number of forms";
         }
+        logger.error("wrong column: " + column);
         return "";
     }
 
@@ -72,6 +78,7 @@ public class DevByTableModel extends AbstractTableModel {
         if( 2 <= columnIndex && columnIndex <= 5 ) {
             return Double.class;
         }
+        logger.error("wrong column: " + columnIndex);
         return Object.class;
     }
 
@@ -91,7 +98,10 @@ public class DevByTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        assert isCellWithinBounds(rowIndex, columnIndex);
+        if(!isCellWithinBounds(rowIndex,columnIndex)) {
+            logger.error("wrong cell: " + rowIndex + " " + columnIndex);
+            return "";
+        }
         switch (columnIndex) {
             case 1:
                 return items.get(rowIndex-1);
