@@ -91,7 +91,7 @@ public class ConfigManager {
     }
     
     
-    
+    // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH this utility method should be moved to separate utility class. Besides you are reinventing the wheel. There are number of libraries to deal with config files (e.g. java.util.Properties, ini4j, and others). To read array you might store property in predefined format like JSON and then you can use existing libraries to parse/write array data to properties.
     // read text data from a file
     private static ArrayList<String> readStringsFromFile( String fileName )
     {

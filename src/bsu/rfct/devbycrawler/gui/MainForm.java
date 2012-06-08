@@ -12,12 +12,12 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.List;
 
-
+// TODO AUTHOR popretinskaya_e 07.06.2012 LOW do not forget about JavaDoc for class and public methods at least.
 public class MainForm {
 
     public MainForm() {
         aController = new Controller();
-        comboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "http://dev.by/salaries/" }));
+        comboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "http://dev.by/salaries/" })); // TODO AUTHOR popretinskaya_e 07.06.2012 LOW it's better to give meaningful names to UI elements as well. comboBox1 is not good name. Same goes for the rest of UI components without meaningful names
         list1.setListData( aController.getPlatforms().toArray() );
         comboBox1.addActionListener(new ActionListener() {
             @Override

@@ -62,6 +62,7 @@ public class DevByTableModelTest {
         Assert.assertEquals( aTable.getColumnCount(), 5 );
     }
 
+    // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH Good unit test should test 1 thing only. You might split test below to several tests.
     @Test
     public void testGetValueAt() {
         for(int i=0; i<someItems.size(); i++) {

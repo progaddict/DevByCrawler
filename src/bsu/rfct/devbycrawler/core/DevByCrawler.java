@@ -48,15 +48,15 @@ public class DevByCrawler implements ICrawler {
         try {
             final int numberOfRows = aDevByTableModel.getRowCount();
             Double totalNumberOfForms = 0.0d;
-            for(int i=1; i<=numberOfRows; i++) {
-                Double average = (Double)aDevByTableModel.getValueAt(i,3);
+            for(int i=1; i<=numberOfRows; i++) { // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH this loop would be much better if instead/inside of tableModel you would use Map and custom POJO with min/max/average/numberOfForms values
+                Double average = (Double)aDevByTableModel.getValueAt(i,3); // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH direct class cast in most cases is not good. You should avoid it. Besides 3 and 5 are magic numbers.
                 Double numberOfForms = (Double)aDevByTableModel.getValueAt(i,5);
                 totalNumberOfForms += numberOfForms;
                 result += numberOfForms*average;
             }
-            assert totalNumberOfForms != 0;
+            assert totalNumberOfForms != 0; // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH don't use Assert for logic! Also remember that Asserts could be turned off on virtual machine and it's not guaranteed that they would be performed (by default, assertions are disabled at runtime.). Read more http://docs.oracle.com/javase/6/docs/technotes/guides/language/assert.html
             if( totalNumberOfForms == 0 ) {
-                logger.error("number of forms is zero! I won't divide by zero!");
+                logger.error("number of forms is zero! I won't divide by zero!"); // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH I think in this case it would be better to throw meaningful custom Exeception (for example NoRequestedDataException) and handle it in UI (e.g. show meaningful message to User)
                 return 0.0d;
             }
             result /= totalNumberOfForms;
@@ -64,7 +64,7 @@ public class DevByCrawler implements ICrawler {
         // TODO what might go wrong?
         catch (Exception trouble) {
             logger.error("something went wrong: " + trouble.getMessage() + ". returning 0.");
-            return 0.0d;
+            return 0.0d; // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH usually it's not good to use return values in case when something went wrong. Usually it's better to throw exception and handle it on higher level. Besides if you use return value to show that something went wrong then use unusual value. 0 is not good in your case (negative value for example would show that something is not good)
         }
         return result;
     }

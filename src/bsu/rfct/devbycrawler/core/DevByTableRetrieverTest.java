@@ -39,13 +39,13 @@ public class DevByTableRetrieverTest {
     }
 
 
-
+// TODO AUTHOR popretinskaya_e 07.06.2012 HIGH test below is not real unit test. Test should perform assertion and you are not checking anything. You only print something to console.
     @Test
     public void testRetrieveTable() throws Exception {
         DevByTableModel aTable = (DevByTableModel) aDevByTableRetriever.retrieveTable(aUserQuery);
         int rowNumber = aTable.getRowCount();
         int colNumber = aTable.getColumnCount();
-        System.out.println("rows = " + rowNumber + "   cols = " + colNumber);
+        System.out.println("rows = " + rowNumber + "   cols = " + colNumber); // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH Do not use System.out in your code. Even in tests. This is really BAD practice
         String header = "";
         for(int i=1; i<=colNumber; i++) {
             header = header + aTable.getColumnName(i) + "\t\t";

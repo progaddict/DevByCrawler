@@ -23,7 +23,7 @@ public class DevByTableModel extends AbstractTableModel {
 
     private String itemsName;
     private int numberOfRows;
-    private ArrayList<String> items;
+    private ArrayList<String> items; // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH instead of usage of 4(!) arrays you could use something Map<String, ItemData> . And ItemData is simple POJO with getMin(), getMax(), getAverage() and so on. Then you would not need to deal with Object which is not quite safe. 
     private ArrayList<Double> min;
     private ArrayList<Double> average;
     private ArrayList<Double> max;

@@ -50,10 +50,10 @@ public class DevByTableRetriever implements ITableRetriever {
         String numberToParse = rawTagContents.replaceAll("[^0-9]","");
         numberOfForms.add(Double.parseDouble(numberToParse));
         // now handle min, max and average
-        String stringMin = tableRowElements.get(1).text().trim();
+        String stringMin = tableRowElements.get(1).text().trim(); // TODO AUTHOR popretinskaya_e 07.06.2012 HIGH 1,2,3 are "magic numbers"
         String stringAverage = tableRowElements.get(2).text().trim();
         String stringMax = tableRowElements.get(3).text().trim();
-        min.add(Double.parseDouble(stringMin));
+        min.add(Double.parseDouble(stringMin)); // TODO AUTHOR popretinskaya_e 07.06.2012 QUESTION why don't you handle NumberFormatException?
         average.add(Double.parseDouble(stringAverage));
         max.add(Double.parseDouble(stringMax));
     }
